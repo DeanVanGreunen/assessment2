@@ -25,7 +25,7 @@
 <script type="text/javascript">
     function getList(q){
         q = q ?? "";
-        fetch('http://localhost:5000/list?q=' + q, { method: 'GET'})
+        fetch('http://127.0.0.1:5000/list?q=' + q, { method: 'GET'})
         .then(function(response) { return response.json(); })
         .then(function(json) {
             document.getElementById('todoListListContainer').innerHTML = ""; // clear
@@ -37,7 +37,7 @@
     }
     
     function addTodo(text){
-        fetch('http://localhost:5000/add', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text: text})})
+        fetch('http://127.0.0.1:5000/add', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text: text})})
         .then(res => res.json())
         .then(data => {
             getList(); // reload list
