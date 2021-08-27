@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - suruse
+  app:
+    build: .
+    command:
+      - export FLASK_APP=app
+      - python flask run
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - ./postgres-data:/var/lib/postgresql/data

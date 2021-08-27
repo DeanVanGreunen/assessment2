@@ -1,0 +1,15 @@
+Chameleon==3.9.1
+hupper==1.10.3
+Jinja2==3.0.1
+MarkupSafe==2.0.1
+PasteDeploy==2.1.1
+plaster==1.0
+plaster-pastedeploy==0.7
+pyramid==2.0
+pyramid-chameleon==0.3
+pyramid-jinja2==2.8
+translationstring==1.4
+venusian==3.0.0
+WebOb==1.8.7
+zope.deprecation==4.4.0
+zope.interface==5.4.0
