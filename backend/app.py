@@ -18,40 +18,25 @@ db = SQLAlchemy(app)
 db_string = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 
-@app.route("/list", methods=['GET', 'OPTIONS'])
+@app.route("/list", methods=['GET'])
 def getTodoList():
-    if request.method == "OPTIONS": # CORS preflight
-        return _build_cors_prelight_response()
     q = request.args.get('q', False)
     db = create_engine(db_string)
     db.execute("CREATE TABLE IF NOT EXISTS notes (title text)")  
     result_set = db.execute("SELECT * FROM notes")  
     notes = [r['title'] for r in result_set if q.lower() in r['title'].lower()]
-    return _corsify_actual_response(jsonify(notes))
+    return jsonify(notes)
 
-@app.route("/add", methods=['POST', 'OPTIONS'])
+@app.route("/add", methods=['POST'])
 def addTodo():
-    if request.method == "OPTIONS": # CORS preflight
-        return _build_cors_prelight_response()
     text = request.get_json().get('text', False)
     if text and len(text) >= 10 and len(text) <= 100:
         db = create_engine(db_string)
         db.execute("CREATE TABLE IF NOT EXISTS notes (title text)")  
         db.execute("INSERT INTO notes (title) VALUES ('" + text + "')")
-        return _corsify_actual_response(jsonify({'success': True}))
+        return jsonify({'success': True})
     else: # else ignore if text is to long, to short or no text is provided
-        return _corsify_actual_response(jsonify({'success': False}))
-
-def _build_cors_prelight_response():
-    response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add('Access-Control-Allow-Headers', "*")
-    response.headers.add('Access-Control-Allow-Methods', "*")
-    return response
-
-def _corsify_actual_response(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+        return jsonify({'success': False})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
