@@ -4,6 +4,6 @@ services:
     build: .
     command: python app.py
     ports:
-      - "49153:80"
+      - "80:49153"
     volumes:
       - .:/app
