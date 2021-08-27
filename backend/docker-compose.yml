@@ -13,8 +13,7 @@ services:
   app:
     build: .
     command:
-      - ENV FLASK_APP app
-      - python flask run
+      - python flask run app
     ports:
       - "5000:5000"
     volumes:
