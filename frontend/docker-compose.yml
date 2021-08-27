@@ -7,4 +7,3 @@ services:
       - "80:80"
     volumes:
       - .:/app
-EXPOSE 80
