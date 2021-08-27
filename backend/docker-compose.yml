@@ -12,8 +12,7 @@ services:
       - pgdata:/var/lib/postgresql/data
   app:
     build: .
-    command:
-      - python flask run app
+    command: python -m flask run
     ports:
       - "5000:5000"
     volumes:
